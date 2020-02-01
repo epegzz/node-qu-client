@@ -1,5 +1,5 @@
 {
-  "name": "node-qu-client",
+  "name": "@epegzz/node-qu-client",
   "version": "1.0.0",
   "description": "NodeJS client library for Allen & Heath QU series mixer",
   "keywords": [
