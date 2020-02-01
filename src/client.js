@@ -1,69 +1,61 @@
-const midi = require("midi");
+const midi = require('midi')
 
 class Client {
   constructor(mixerPortName) {
-    this.connect(mixerPortName);
+    this.connect(mixerPortName)
   }
 
   connect(mixerPortName) {
-    this.output = new midi.Output();
+    this.output = new midi.Output()
 
-    const portNames = [];
-    for (
-      let portNumber = 0;
-      portNumber < this.output.getPortCount();
-      portNumber++
-    ) {
-      portNames.push(this.output.getPortName(portNumber));
+    const portNames = []
+    for (let portNumber = 0; portNumber < this.output.getPortCount(); portNumber++) {
+      portNames.push(this.output.getPortName(portNumber))
     }
 
-    const portIndex = portNames.findIndex(
-      portName => portName === mixerPortName
-    );
+    const portIndex = portNames.findIndex(portName => portName === mixerPortName)
     if (portIndex < 0) {
-      const formattedPortNameList = portNames
-        .map(portName => `"${portName}"`)
-        .join(", ");
+      const formattedPortNameList = portNames.map(portName => `"${portName}"`).join(', ')
       throw new Error(
         [
-          "\n",
+          '\n',
           `   Connecting to mixer failed: Could not any find port named "${mixerPortName}".`,
-          `   Available ports are: ${formattedPortNameList}\n`
-        ].join("\n")
-      );
+          `   Available ports are: ${formattedPortNameList}\n`,
+        ].join('\n')
+      )
     }
-    this.output.openPort(portIndex);
+    this.output.openPort(portIndex)
   }
 
   disconnect() {
-    this.output.closePort();
+    this.output.closePort()
   }
 
   // percent value between 0 and 127
   setFaderPosition({ channel, percent }) {
-    percent = Math.max(0, percent);
-    percent = Math.min(127, percent);
-    this.setNrpnParameter({ channel, value: percent });
+    percent = Math.max(0, percent)
+    percent = Math.min(127, percent)
+    this.setNrpnParameter({ channel, value: percent })
   }
 
   setPaflSelect({ channel, active }) {
-    const value = active ? 1 : 0;
-    this.setNrpnParameter({ channel, value });
+    const value = active ? 1 : 0
+    this.setNrpnParameter({ channel, value })
   }
 
   setMute({ channel, active }) {
-    const value = active ? 0x7f : 0x3f;
-    const { output } = this;
-    output.sendMessage([0x90, channel, value]);
-    output.sendMessage([0x80, channel, 0x00]);
+    const value = active ? 0x7f : 0x3f
+    const { output } = this
+    output.sendMessage([0x90, channel, value])
+    output.sendMessage([0x80, channel, 0x00])
   }
 
   setNrpnParameter({ channel, value, valueIndex = 0x07 }) {
-    const { output } = this;
-    output.sendMessage([0xb0, 0x63, channel]);
-    output.sendMessage([0xb0, 0x62, 0x17]);
-    output.sendMessage([0xb0, 0x06, value]);
-    output.sendMessage([0xb0, 0x26, valueIndex]);
+    const { output } = this
+    output.sendMessage([0xb0, 0x63, channel])
+    output.sendMessage([0xb0, 0x62, 0x17])
+    output.sendMessage([0xb0, 0x06, value])
+    output.sendMessage([0xb0, 0x26, valueIndex])
   }
 }
 
@@ -128,7 +120,7 @@ Client.channels = {
   mix_9_10: 0x66,
   main_lr: 0x67,
   matrix_1_2: 0x6c,
-  matrix_3_4: 0x6d
-};
+  matrix_3_4: 0x6d,
+}
 
-module.exports = Client;
+module.exports = Client
