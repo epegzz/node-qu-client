@@ -35,12 +35,12 @@ class Client {
   setFaderPosition({ channel, percent }) {
     percent = Math.max(0, percent)
     percent = Math.min(127, percent)
-    this.setNrpnParameter({ channel, value: percent })
+    this.setNrpnParameter({ channel, cmd: 0x17, value: percent })
   }
 
   setPaflSelect({ channel, active }) {
     const value = active ? 1 : 0
-    this.setNrpnParameter({ channel, value })
+    this.setNrpnParameter({ channel, cmd: 0x51, value })
   }
 
   setMute({ channel, active }) {
@@ -50,10 +50,10 @@ class Client {
     output.sendMessage([0x80, channel, 0x00])
   }
 
-  setNrpnParameter({ channel, value, valueIndex = 0x07 }) {
+  setNrpnParameter({ channel, cmd, value, valueIndex = 0x07 }) {
     const { output } = this
     output.sendMessage([0xb0, 0x63, channel])
-    output.sendMessage([0xb0, 0x62, 0x17])
+    output.sendMessage([0xb0, 0x62, cmd])
     output.sendMessage([0xb0, 0x06, value])
     output.sendMessage([0xb0, 0x26, valueIndex])
   }
