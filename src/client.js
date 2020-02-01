@@ -50,6 +50,14 @@ class Client {
     output.sendMessage([0x80, channel, 0x00])
   }
 
+  shutdown() {
+    this.setNrpnParameter({
+      channel: 0,
+      cmd: 0x5f,
+      valueIndex: 0,
+    })
+  }
+
   setNrpnParameter({ channel, cmd, value, valueIndex = 0x07 }) {
     const { output } = this
     output.sendMessage([0xb0, 0x63, channel])

@@ -35,6 +35,7 @@ Currently this client can:
 * activate PAFL for each channel
 * set the fader level for each channel
 * activate the mute button for each channel
+* shut down the mixer
 
 If you need more features then feel free to open a GitHub issue and I will add them.   
 
@@ -95,6 +96,10 @@ mixer.setMute({
   active: false
 })
 
+// Shut down
+mixer.shutdown() 
+
+// Release connection to mixer
 mixer.disconnect()
 ```
 
