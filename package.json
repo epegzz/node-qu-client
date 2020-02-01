@@ -1,0 +1,48 @@
+{
+  "name": "node-qu-client",
+  "version": "1.0.0",
+  "description": "NodeJS client library for Allen & Heath QU series mixer",
+  "keywords": [
+    "node",
+    "allen&heath",
+    "qu-16",
+    "qu-24",
+    "client",
+    "controller",
+    "remote",
+    "midi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epegzz/node-qu-client"
+  },
+  "main": "index.js",
+  "author": "Daniel Schäfer <epegzz@gmail.com>",
+  "license": "ISC",
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged",
+    "lint": "eslint src",
+    "format": "prettier-eslint --write \"src/**/*.js\""
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run format",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "midi": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.12.1",
+    "prettier-eslint-cli": "^4.7.1"
+  }
+}
