@@ -1,0 +1,23 @@
+sudo: false
+language: node_js
+codecov: true
+cache:
+  directories:
+    - node_modules
+env:
+  - NODE_ENV=development
+matrix:
+  fast_finish: true
+install:
+  - NODE_ENV=development npm install
+script:
+  - npm run lint
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: epegzz@gmail.com
+  api_key:
+    secure: mOTInY08VZzX2wajhu3JCxvLKVqa3RSG2PMy1u8vVfsNzh6oPezYR1FLCTjy5+WgEnrv5QHFzlRvv3yPeod7cqQ1mjQZGyx46jHu0BJq8xFSjtcD7woHWRpssZce/R1SmUr+hX8SNwK2x8c19TKsfn3VOeWevZraXSGXhVfypnDc+SakaPQXzBRzFDjHC2b1Pg+jEb4Z6dhT2bTcsOMD27Sp5ZM2O8OHL+SkVuDoyviWBIP8pJEX6R88zJRmxBHX0rNQ+83EC0EUn/iUbMd60Pi8A4pJXLthhrnKAWWdEDoVbYN/x5IB085zaRALIjM56FbxN019aDq69nKxI+GRx6iTKp07/yARGAHaTqXH6jbfluLXU2fzOYPq52zdzGCzkzny0Wt7m+JuMC2YDiXMTm3BgsfcntiGlQaH88XVUOqbko8x6Ra2/NIMBynLoipaFCLRwtC6dvcukCjMUdwe+/7KFzMWeYX2cLPBCIZiLHhZOuSwN0cKAPJ1woT6NwGzPUrktTZC+cU9yhefVURr7l0L5Wr/evYl2CZ86PawKim6lRKFGfX8EaOSgzfy1Z58C989swu74ICTRfjDvlDE/RpHY4JFrWrA7IZspkaVAAxtQxJeiO2OvgI3fcGr2ouMvmp5d2S1GU1KH4qDN39EgmoDX4ALdlfxZ0fpl3xhkmw=
+  on:
+    tags: true
+    repo: epegzz/node-qu-client
